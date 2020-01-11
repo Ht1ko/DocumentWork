@@ -1,0 +1,39 @@
+<div *ngIf="info.token; else loggedOut">
+  <form method="post"  name="form" #f="ngForm">
+    
+    <table border="1" ng-table="documents" class="table table-striped">			
+    <thead>
+      <tr>
+    <th scope="col" sortable="title" (sort)="onSort($event)">Title</th>
+    <th sortable="date" (sort)="onSort($event)">Date</th> 
+    <th sortable="contractOwner" (sort)="onSort($event)">Contract Owner</th>
+    <th sortable="contractTarget" (sort)="onSort($event)">Contract Target</th>
+    <th sortable="dateEnd" (sort)="onSort($event)">Date End</th>
+    <th>Edit</th>
+    </tr>
+    </thead>
+    <tr *ngFor="let document of documents;let i=index">
+     
+    <td>{{document.title}}</td>
+    <td>{{document.date}}</td>
+    <td>{{document.contractOwner}}</td>
+    <td>{{document.contractTarget}}</td>
+    <td>{{document.dateEnd}}</td>
+    <td><button (click)="show(i)">Show and Edit</button></td>
+    </tr>
+    </table>
+    <nav aria-label="Page">
+      <ul class="pagination">
+       <li class="page-item" *ngFor="let p of pages; let i=index">
+           <a class="page-link active" href="" (click)="setPage(i,$event)" [ngClass]="{'active':i==page}">{{i}}</a>
+       </li>
+      </ul>
+    </nav>
+    <button routerLink="/addDocument" routerLinkActive="active">Add new Document</button>
+  </form>
+  <button  (click)="logout()">Logout</button>
+</div>
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>
