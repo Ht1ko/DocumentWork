@@ -3,8 +3,6 @@ import { TokenStorageService } from '../auth/token-storage.service';
 import {AuthService} from '../auth/auth.service';
 import {Document} from '../home/document';
 import { ActivatedRoute} from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
 
  
 export type sortDirection='asc'|'desc'|'';
@@ -111,7 +109,10 @@ export class AdminComponent implements OnInit {
         } 
         return true;
         }
-      });
+      
+      );
+    }
+    
     this.info={
       token:this.token.getToken()
     }
