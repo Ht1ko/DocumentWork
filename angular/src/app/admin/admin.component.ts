@@ -99,10 +99,24 @@ export class AdminComponent implements OnInit {
       }
     );
   }
+  private roles: string[];
+  private authority: string;
   ngOnInit() {
+    if (this.token.getToken()) {
+      this.roles = this.token.getAuthorities();
+      this.roles.every(role => {
+        if (role === 'ROLE_ADMIN') {
+          this.authority = 'admin';
+          return false;
+        } 
+        return true;
+        }
+      });
     this.info={
       token:this.token.getToken()
     }
-    this.getData();
+    if(this.info.token){
+      this.getData();
+    }
   }
 }

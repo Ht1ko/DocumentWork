@@ -85,7 +85,9 @@ export class HomeComponent implements OnInit {
     this.info={
       token:this.token.getToken()
     }
-    this.getData();
+    if(this.info.token){
+      this.getData();
+    }
   }
   setPage(i,event:any){
     event.preventDefault();

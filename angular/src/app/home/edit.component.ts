@@ -2,6 +2,7 @@ import { Component,Input,OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
 import {Document} from './document';
+import { TokenStorageService } from '../auth/token-storage.service';
   
 @Component({
     selector: 'edit',
@@ -11,10 +12,15 @@ import {Document} from './document';
 export class editDocument implements OnInit{
     form:any={};
     errorMessage:any;
-    constructor(private http:AuthService){
+    info:any;
+    constructor(private http:AuthService,private token: TokenStorageService){
     }
     ngOnInit()
         {
+          this.info={
+            token:this.token.getToken()
+          }
+          if(this.info.token){
             this.http.getDoc().subscribe(
                 data => {
                   this.form = data;
@@ -23,7 +29,7 @@ export class editDocument implements OnInit{
                 error => {
                   this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
                 });
-            
+              }
         }  
     onSubmit(){ 
     this.http.Edit(this.form).subscribe(

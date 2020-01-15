@@ -1,7 +1,9 @@
 <html>
 	<body>
-		
+		<div  *ngIf="info.token; else loggedOut">
+
 		<form method="post" name="form" #f="ngForm"  (ngSubmit)="onSubmit()">
+
 			<div><label>Title </label><input name="title" [(ngModel)]="form.title"></div>
 			<div><label>Date </label><input name="date" [(ngModel)]="form.date"></div>
 			<div><label>Contract Owner </label><input name="contractOwner" [(ngModel)]="form.contractOwner"></div>
@@ -10,5 +12,9 @@
 			<div><label>Contains </label><br><textarea rows="10" cols="40" name="content" [(ngModel)]="form.content"></textarea></div>	
 			<button>Edit</button>
 		</form>
+		</div>
+		<ng-template #loggedOut>
+  Please login.
+</ng-template>
 	</body>
 </html>
