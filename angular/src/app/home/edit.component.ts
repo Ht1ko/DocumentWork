@@ -1,7 +1,6 @@
 import { Component,Input,OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Observable } from 'rxjs';
-import {Document} from './document';
+import { ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from '../auth/token-storage.service';
   
 @Component({
@@ -13,7 +12,10 @@ export class editDocument implements OnInit{
     form:any={};
     errorMessage:any;
     info:any;
-    constructor(private http:AuthService,private token: TokenStorageService){
+    id:number;
+    constructor(private http:AuthService,private token: TokenStorageService,private activatedRoute:ActivatedRoute){
+      this.id = activatedRoute.snapshot.params['id'];
+      console.log(this.id); 
     }
     ngOnInit()
         {
@@ -21,7 +23,8 @@ export class editDocument implements OnInit{
             token:this.token.getToken()
           }
           if(this.info.token){
-            this.http.getDoc().subscribe(
+           
+            this.http.getDoc(this.id).subscribe(
                 data => {
                   this.form = data;
                   console.log(this.form);

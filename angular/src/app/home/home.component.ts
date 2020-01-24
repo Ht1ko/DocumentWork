@@ -49,7 +49,17 @@ export class HomeComponent implements OnInit {
   }
   private doc:Document;
   
-  
+  delete(id:number)
+  {
+    this.http.Delete(id).subscribe(
+      data => {
+      console.log(data);    
+    }, 
+    error => {
+        console.log(error);
+    });
+    window.location.reload;
+  }
   onSort({column, direction}: SortEvent) {
 
     // resetting other headers
@@ -68,18 +78,6 @@ export class HomeComponent implements OnInit {
         return direction === 'asc' ? res : -res;
       });
     }
-  }
-  
-  show(i:any){
-    this.doc=this.documents[i];
-    this.http.sendDoc(this.doc.id).subscribe (
-      data => {
-      console.log(data);   
-    }, 
-    error => {
-        console.log(error);
-    });
-    window.location.replace("/editDocument");
   }
   ngOnInit() {
     this.info={

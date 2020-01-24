@@ -23,6 +23,7 @@ export class AuthService {
   private editUrl='http://localhost:8080/api/auth/edit';
   private adminUrl='http://localhost:8080/api/auth/admin/';
   private editforUrl='http://localhost:8080/api/auth/editDocument';
+  private deleteUrl='http://localhost:8080/api/auth/Delete';
   constructor(private http: HttpClient) {
   }
 
@@ -36,6 +37,10 @@ export class AuthService {
   Add(document:Document): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(this.addUrl,document, httpOptions);
   }
+  Delete(id:number)
+  {
+    return this.http.post<JwtResponse>(this.deleteUrl,id,httpOptions);
+  }
   Edit(document:Document): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(this.editforUrl,document, httpOptions);
   }
@@ -45,10 +50,8 @@ export class AuthService {
   getAdmin(id:number):Observable<any>{
     return this.http.get<any>(this.adminUrl+id,httpOptions);
   }
-  getDoc():Observable<Document>{
-    return this.http.get<Document>(this.editUrl,httpOptions);
+  getDoc(id:number):Observable<Document>{
+    return this.http.get<Document>(this.editUrl+`/${id}`,httpOptions);
   }
-  sendDoc(document:any):Observable<JwtResponse>{
-    return this.http.post<JwtResponse>(this.editUrl,document,httpOptions);
-  }
+  
 }

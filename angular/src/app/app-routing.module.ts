@@ -36,11 +36,11 @@ const routes: Routes = [
         component: RegisterComponent
     },
     {
-        path:'editDocument',
+        path:'editDocument/:id',
         component: editDocument
     },
     {
-        path:'show',
+        path:'show/:id',
         component:showDocument
     },
     {

@@ -67,19 +67,6 @@ export class AdminComponent implements OnInit {
       });
     }
   }
-  
-  show(i:any){
-    this.doc=this.documents[i];
-    
-    this.http.sendDoc(this.doc.id).subscribe (
-      data => {
-
-    }, 
-    error => {
-        console.log(error);
-    });
-    window.location.replace("/show");
-  }
   setPage(i,event:any){
     event.preventDefault();
     this.page=i;

@@ -21,7 +21,7 @@
       <td>{{document.contractOwner}}</td>
       <td>{{document.contractTarget}}</td>
       <td>{{document.dateEnd}}</td>
-      <td><button (click)="show(i)">Show</button></td>
+      <td><a [routerLink]="['/show', document.id]" role="button" routerLinkActive="active">Show</a></td>
       </tr>
       </table>
       <nav aria-label="Page">

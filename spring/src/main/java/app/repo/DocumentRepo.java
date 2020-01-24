@@ -13,4 +13,5 @@ public interface DocumentRepo extends  JpaRepository<Document, Long> {
         Iterable<Document> findByUserId(Long user);
         Page<Document> findAll(Pageable pageable);
         Page<Document> findByUserId(Long user,Pageable pageable);
+        Void deleteById(long id);
 }

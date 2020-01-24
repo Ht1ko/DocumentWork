@@ -10,6 +10,7 @@
     <th sortable="contractTarget" (sort)="onSort($event)">Contract Target</th>
     <th sortable="dateEnd" (sort)="onSort($event)">Date End</th>
     <th>Edit</th>
+    <th>Delete</th>
     </tr>
     </thead>
     <tr *ngFor="let document of documents;let i=index">
@@ -19,7 +20,8 @@
     <td>{{document.contractOwner}}</td>
     <td>{{document.contractTarget}}</td>
     <td>{{document.dateEnd}}</td>
-    <td><button (click)="show(i)">Show and Edit</button></td>
+    <td><a [routerLink]="['/editDocument', document.id]" role="button" routerLinkActive="active">Show and Edit</a></td>
+    <td><button (click)="delete(document.id)">Delete</button></td>
     </tr>
     </table>
     <nav aria-label="Page">

@@ -34,7 +34,10 @@ public class DocumentService {
         page = documentRepo.findByUserId(userId,pa);
         return page;
     }
-
+    public void deleteById(long id) {
+    	Document doc=documentRepo.findById(id).get();
+    	documentRepo.delete(doc);
+    }
     public Iterable<Document> findByUserId(Long userId) {
         User user = userRepo.findById(userId).get();
         return documentRepo.findByUserId(user.getId());

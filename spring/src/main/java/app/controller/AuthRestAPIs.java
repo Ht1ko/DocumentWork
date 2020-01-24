@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +58,6 @@ public class AuthRestAPIs {
 
     @Autowired
     JwtProvider jwtProvider;
-    public Long id;
 
     private Long userId() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -69,16 +67,11 @@ public class AuthRestAPIs {
         return null;
     }
 
-    @PostMapping("/edit")
-    public void addEdit(@Valid @RequestBody Long id) {
+
+    @GetMapping("/edit/{id}")
+    public Document edit(@PathVariable long id) {
+
         Document doc = docServ.findById(id);
-        this.id = doc.getId();
-    }
-
-    @GetMapping("/edit")
-    public Document edit() {
-
-        Document doc = docServ.findById(this.id);
         return doc;
     }
 
@@ -95,13 +88,22 @@ public class AuthRestAPIs {
 
     @PostMapping("/editDocument")
     public ResponseEntity<?> edit(@Valid @RequestBody Document doc) {
-        if (docServ.findById(id) != null) {
+        if (docServ.findById(doc.getId()) != null) {
             docServ.update(doc, userId());
             return new ResponseEntity<>(new ResponseMessage("Document edited!"), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseMessage("Document not found!"), HttpStatus.OK);
     }
-
+    
+    @PostMapping("/Delete")
+    public ResponseEntity<?> delete(@Valid @RequestBody long id)
+    {
+    	if(docServ.findById(id)!=null) {
+    	docServ.deleteById(id);
+    	return new ResponseEntity<>(new ResponseMessage("Document Deleted!"), HttpStatus.OK);
+    	}
+    	return new ResponseEntity<>(new ResponseMessage("Document not found!"), HttpStatus.OK);
+    }
     @PostMapping("/addDocument")
     public ResponseEntity<?> add(@Valid @RequestBody Document doc) {
         Document document = new Document(doc.getTitle(), doc.getContent(), doc.getDate(), doc.getContractOwner(),
