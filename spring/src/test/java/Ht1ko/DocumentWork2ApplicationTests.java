@@ -8,6 +8,7 @@ class DocumentWork2ApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("test started");
 	}
 
 }
